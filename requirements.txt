@@ -1,0 +1,3 @@
+PyMySQL
+PyYAML
+flask
