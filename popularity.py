@@ -81,8 +81,8 @@ def query_most_popular_users():
     :return:
     """
 
-    users = inefficient_query()
-    #users = efficient_query()
+    #users = inefficient_query()
+    users = efficient_query()
 
     return jsonify(service_id=str(service_id), index=index, users=users)
 
