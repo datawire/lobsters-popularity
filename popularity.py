@@ -32,7 +32,7 @@ index = 0
 service_id = uuid.uuid4()
 
 config = {}
-db = None
+environ = "development"
 
 query = "SELECT username, karma FROM users WHERE banned_at IS NULL ORDER BY karma DESC"
 
@@ -53,18 +53,24 @@ def increment_index():
 def inefficient_query():
     import time
     # this is just for demo purposes... let's do something really stupid like sleep in our method
-    time.sleep(5)
+    time.sleep(10)
 
     increment_index()
+    db = connect(config[environ]['database'])
     cur = db.cursor()
     cur.execute(query)
-    return cur.fetchall()
+    users = cur.fetchall()
+    db.close()
+    return users
 
 def efficient_query():
     increment_index()
+    db = connect(config[environ]['database'])
     cur = db.cursor()
     cur.execute(query)
-    return cur.fetchall()
+    users = cur.fetchall()
+    db.close()
+    return users
 
 @app.route("/")
 def query_most_popular_users():
@@ -116,8 +122,6 @@ if __name__ == "__main__":
     passed_args = sys.argv
     with open(passed_args[2], 'r') as f:
         config = yaml.load(f)
-
-    db = connect(config[passed_args[1]]['database'])
 
     # only using debug=True for the nice auto-reload on change feature
     environ = passed_args[1]

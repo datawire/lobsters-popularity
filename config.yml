@@ -8,7 +8,19 @@ development:
   database:
     host: <%= ENV['DB_PORT_3306_TCP_ADDR'] =>
     port: <%= ENV['DB_PORT_3306_TCP_PORT'] =>
-    database: lobster
-    username: lobster
-    password: lobster
+    database: lobsters
+    username: lobsters
+    password: lobsters
+    charset: utf8mb4
+
+production:
+  web:
+    listen: 0.0.0.0
+    port: 4099
+  database:
+    host: 192.168.22.10
+    port: 3306
+    database: lobsters
+    username: lobsters
+    password: lobsters
     charset: utf8mb4
