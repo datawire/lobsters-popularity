@@ -104,7 +104,7 @@ def connect(db_config):
         db=db_config['database'],
         host=db_config['host'],
         password=db_config['password'],
-        port=int(db_config['port']),
+        port=3306,
         user=db_config['username']
     )
 
@@ -115,6 +115,7 @@ if __name__ == "__main__":
     def env_regex(loader, node):
         value = loader.construct_scalar(node)
         var = pattern.match(value).groups()[0]
+        print "VAR is %s" % var
         return os.environ[var]
 
     yaml.add_constructor('!env_regex', env_regex)

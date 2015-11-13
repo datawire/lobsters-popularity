@@ -1,0 +1,6 @@
+---
+service_name: lobsters-popularity
+service_port: 5001
+service_links:
+  - lobsters-db:db
+  - directory:directory
